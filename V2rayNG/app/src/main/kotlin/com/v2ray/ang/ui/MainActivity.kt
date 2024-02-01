@@ -253,6 +253,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             importManually(EConfigType.TROJAN.value)
             true
         }
+        R.id.import_manually_wireguard -> {
+            importManually(EConfigType.WIREGUARD.value)
+            true
+        }
         R.id.import_config_custom_clipboard -> {
             importConfigCustomClipboard()
             true
@@ -414,6 +418,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         var count = AngConfigManager.importBatchConfig(server, subid2, append)
         if (count <= 0) {
             count = AngConfigManager.importBatchConfig(Utils.decode(server!!), subid2, append)
+        }
+        if (count <= 0) {
+            count = AngConfigManager.appendCustomConfigServer(server, subid2)
         }
         if (count > 0) {
             toast(R.string.toast_success)

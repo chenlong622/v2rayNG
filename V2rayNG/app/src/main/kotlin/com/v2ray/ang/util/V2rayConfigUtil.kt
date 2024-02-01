@@ -7,6 +7,8 @@ import com.google.gson.*
 import com.tencent.mmkv.MMKV
 import com.v2ray.ang.AppConfig
 import com.v2ray.ang.AppConfig.ANG_PACKAGE
+import com.v2ray.ang.AppConfig.WIREGUARD_LOCAL_ADDRESS_V4
+import com.v2ray.ang.AppConfig.WIREGUARD_LOCAL_ADDRESS_V6
 import com.v2ray.ang.dto.V2rayConfig
 import com.v2ray.ang.dto.EConfigType
 import com.v2ray.ang.dto.ERoutingMode
@@ -32,12 +34,12 @@ object V2rayConfigUtil {
                 } else {
                     raw
                 }
-                Log.d(ANG_PACKAGE, customConfig)
+                //Log.d(ANG_PACKAGE, customConfig)
                 return Result(true, customConfig)
             }
             val outbound = config.getProxyOutbound() ?: return Result(false, "")
             val result = getV2rayNonCustomConfig(context, outbound)
-            Log.d(ANG_PACKAGE, result.content)
+            //Log.d(ANG_PACKAGE, result.content)
             return result
         } catch (e: Exception) {
             e.printStackTrace()
@@ -402,11 +404,11 @@ object V2rayConfigUtil {
     private fun updateOutboundWithGlobalSettings(outbound: V2rayConfig.OutboundBean): Boolean {
         try {
             var muxEnabled = settingsStorage?.decodeBool(AppConfig.PREF_MUX_ENABLED, false)
-
             val protocol = outbound.protocol
             if (protocol.equals(EConfigType.SHADOWSOCKS.name, true)
                 || protocol.equals(EConfigType.SOCKS.name, true)
                 || protocol.equals(EConfigType.TROJAN.name, true)
+                || protocol.equals(EConfigType.WIREGUARD.name, true)
             ) {
                 muxEnabled = false
             } else if (protocol.equals(EConfigType.VLESS.name, true)
@@ -414,7 +416,6 @@ object V2rayConfigUtil {
             ) {
                 muxEnabled = false
             }
-
             if (muxEnabled == true) {
                 outbound.mux?.enabled = true
                 outbound.mux?.concurrency =
@@ -426,6 +427,18 @@ object V2rayConfigUtil {
             } else {
                 outbound.mux?.enabled = false
                 outbound.mux?.concurrency = -1
+            }
+
+            if (protocol.equals(EConfigType.WIREGUARD.name, true)) {
+                var localTunAddr = if (outbound.settings?.address == null) {
+                    listOf(WIREGUARD_LOCAL_ADDRESS_V4, WIREGUARD_LOCAL_ADDRESS_V6)
+                } else {
+                    outbound.settings?.address as List<*>
+                }
+                if (settingsStorage?.decodeBool(AppConfig.PREF_PREFER_IPV6) != true) {
+                    localTunAddr = listOf(localTunAddr.first())
+                }
+                outbound.settings?.address = localTunAddr
             }
 
             if (outbound.streamSettings?.network == DEFAULT_NETWORK

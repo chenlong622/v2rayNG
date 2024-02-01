@@ -283,7 +283,7 @@ object Utils {
 
     fun urlDecode(url: String): String {
         return try {
-            URLDecoder.decode(URLDecoder.decode(url), "utf-8")
+            URLDecoder.decode(url, "UTF-8")
         } catch (e: Exception) {
             e.printStackTrace()
             url
@@ -366,7 +366,7 @@ object Utils {
     }
 
     fun getIpv6Address(address: String): String {
-        return if (isIpv6Address(address)) {
+        return if (isIpv6Address(address) && !address.contains('[') && !address.contains(']')) {
             String.format("[%s]", address)
         } else {
             address
