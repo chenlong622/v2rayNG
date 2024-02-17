@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 data class V2rayConfig(
+        var remarks: String? = null,
         var stats: Any? = null,
         val log: LogBean,
         var policy: PolicyBean?,
@@ -60,15 +61,16 @@ data class V2rayConfig(
                                 val metadataOnly: Boolean? = null)
     }
 
-    data class OutboundBean(val tag: String = "proxy",
+    data class OutboundBean(var tag: String = "proxy",
                             var protocol: String,
                             var settings: OutSettingsBean? = null,
                             var streamSettings: StreamSettingsBean? = null,
                             val proxySettings: Any? = null,
                             val sendThrough: String? = null,
-                            val mux: MuxBean? = MuxBean(false)) {
+                            var mux: MuxBean? = MuxBean(false)) {
 
         data class OutSettingsBean(var vnext: List<VnextBean>? = null,
+                                   var fragment: FragmentBean? = null,
                                    var servers: List<ServersBean>? = null,
                 /*Blackhole*/
                                    var response: Response? = null,
@@ -100,6 +102,10 @@ data class V2rayConfig(
                                      var encryption: String = "",
                                      var flow: String = "")
             }
+
+            data class FragmentBean(var packets: String? = null,
+                                 var length: String? = null,
+                                 var interval: String? = null)
 
             data class ServersBean(var address: String = "",
                                    var method: String = "chacha20-poly1305",
@@ -135,7 +141,7 @@ data class V2rayConfig(
                                       var realitySettings: TlsSettingsBean? = null,
                                       var grpcSettings: GrpcSettingsBean? = null,
                                       val dsSettings: Any? = null,
-                                      val sockopt: Any? = null
+                                      var sockopt: SockoptBean? = null
         ) {
 
             data class TcpSettingsBean(var header: HeaderBean = HeaderBean(),
@@ -180,6 +186,13 @@ data class V2rayConfig(
 
             data class HttpSettingsBean(var host: List<String> = ArrayList(),
                                         var path: String = "")
+
+            data class SockoptBean(var TcpNoDelay: Boolean? = null,
+                                   var tcpKeepAliveIdle: Int? = null,
+                                   var tcpFastOpen: Boolean? = null,
+                                   var tproxy: String? = null,
+                                   var mark: Int? = null,
+                                   var dialerProxy: String? = null)
 
             data class TlsSettingsBean(var allowInsecure: Boolean = false,
                                        var serverName: String = "",
