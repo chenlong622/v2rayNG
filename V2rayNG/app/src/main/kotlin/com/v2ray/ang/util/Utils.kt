@@ -17,21 +17,20 @@ import android.util.Log
 import android.util.Patterns
 import android.webkit.URLUtil
 import androidx.appcompat.app.AppCompatDelegate
-import com.tencent.mmkv.MMKV
 import com.v2ray.ang.AppConfig
 import com.v2ray.ang.AppConfig.ANG_PACKAGE
+import com.v2ray.ang.AppConfig.LOOPBACK
 import com.v2ray.ang.BuildConfig
 import com.v2ray.ang.R
+import com.v2ray.ang.dto.Language
 import com.v2ray.ang.extension.toast
 import com.v2ray.ang.service.V2RayServiceManager
+import com.v2ray.ang.util.MmkvManager.settingsStorage
 import java.io.IOException
 import java.net.*
 import java.util.*
 
 object Utils {
-
-    private val mainStorage by lazy { MMKV.mmkvWithID(MmkvManager.ID_MAIN, MMKV.MULTI_PROCESS_MODE) }
-    private val settingsStorage by lazy { MMKV.mmkvWithID(MmkvManager.ID_SETTING, MMKV.MULTI_PROCESS_MODE) }
 
     /**
      * convert string to editalbe for kotlin
@@ -246,7 +245,7 @@ object Utils {
     }
 
     fun startVServiceFromToggle(context: Context): Boolean {
-        if (mainStorage?.decodeString(MmkvManager.KEY_SELECTED_SERVER).isNullOrEmpty()) {
+        if (MmkvManager.getSelectServer().isNullOrEmpty()) {
             context.toast(R.string.app_tile_first_use)
             return false
         }
@@ -362,7 +361,7 @@ object Utils {
             url.openConnection(
                 Proxy(
                     Proxy.Type.HTTP,
-                    InetSocketAddress("127.0.0.1", httpPort)
+                    InetSocketAddress(LOOPBACK, httpPort)
                 )
             )
         }
@@ -407,19 +406,22 @@ object Utils {
     }
 
     fun getLocale(): Locale {
-        val lang = settingsStorage?.decodeString(AppConfig.PREF_LANGUAGE) ?: "auto"
-        return when (lang) {
-            "auto" -> getSysLocale()
-            "en" -> Locale.ENGLISH
-            "zh-rCN" -> Locale.CHINA
-            "zh-rTW" -> Locale.TRADITIONAL_CHINESE
-            "vi" -> Locale("vi")
-            "ru" -> Locale("ru")
-            "fa" -> Locale("fa")
-            "bn" -> Locale("bn")
-            else -> getSysLocale()
+        val langCode = settingsStorage?.decodeString(AppConfig.PREF_LANGUAGE) ?: Language.AUTO.code
+        val language = Language.fromCode(langCode)
+
+        return when (language) {
+            Language.AUTO -> getSysLocale()
+            Language.ENGLISH -> Locale.ENGLISH
+            Language.CHINA -> Locale.CHINA
+            Language.TRADITIONAL_CHINESE -> Locale.TRADITIONAL_CHINESE
+            Language.VIETNAMESE -> Locale("vi")
+            Language.RUSSIAN -> Locale("ru")
+            Language.PERSIAN -> Locale("fa")
+            Language.BANGLA -> Locale("bn")
         }
     }
+
+
 
 
     private fun getSysLocale(): Locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -455,6 +457,29 @@ object Utils {
         }
     }
 
+    fun findFreePort(ports: List<Int>): Int {
+        for (port in ports) {
+            try {
+                return ServerSocket(port).use { it.localPort }
+            } catch (ex: IOException) {
+                continue  // try next port
+            }
+        }
+
+        // if the program gets here, no port in the range was found
+        throw IOException("no free port found")
+    }
+
+    fun isValidSubUrl(value: String?): Boolean {
+        try {
+            if (value.isNullOrEmpty()) return false
+            if (URLUtil.isHttpsUrl(value)) return true
+            if (URLUtil.isHttpUrl(value) && value.contains(LOOPBACK)) return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return false
+    }
 
 }
 
