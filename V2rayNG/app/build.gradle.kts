@@ -10,9 +10,9 @@ android {
     defaultConfig {
         applicationId = "com.v2ray.ang"
         minSdk = 21
-        targetSdk = 34
-        versionCode = 602
-        versionName = "1.9.8"
+        targetSdk = 35
+        versionCode = 609
+        versionName = "1.9.13"
         multiDexEnabled = true
         splits {
             abi {
@@ -91,6 +91,8 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
     testImplementation(libs.junit)
+    testImplementation(libs.org.mockito.mockito.inline)
+    testImplementation(libs.mockito.kotlin)
 
     implementation(libs.flexbox)
     // Androidx
