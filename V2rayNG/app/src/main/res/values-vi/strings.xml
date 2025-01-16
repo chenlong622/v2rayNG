@@ -7,6 +7,7 @@
     <string name="navigation_drawer_close">Đóng Menu ứng dụng</string>
     <string name="migration_success">Đã chuyển dữ liệu!</string>
     <string name="migration_fail">Không thể chuyển dữ liệu!</string>
+    <string name="pull_down_to_refresh">Please pull down to refresh!</string>
 
     <!-- Notifications -->
     <string name="notification_action_stop_v2ray">Ngắt kết nối v2rayNG</string>
@@ -113,6 +114,8 @@
     <string name="server_lab_port_hop">Port Hopping</string>
     <string name="server_lab_port_hop_interval">Port Hopping Interval</string>
     <string name="server_lab_stream_pinsha256">pinSHA256</string>
+    <string name="server_lab_bandwidth_down">Bandwidth down (units)</string>
+    <string name="server_lab_bandwidth_up">Bandwidth up (units)</string>
     <string name="server_lab_xhttp_mode">XHTTP Mode</string>
     <string name="server_lab_xhttp_extra">XHTTP Extra raw JSON, format: { XHTTPObject }</string>
 
@@ -175,6 +178,7 @@
     <string name="summary_pref_remote_dns">DNS</string>
 
     <string name="title_pref_vpn_dns">VPN DNS (Chỉ IPv4 / IPv6)</string>
+    <string name="title_pref_vpn_bypass_lan">Does VPN bypass LAN</string>
 
     <string name="title_pref_domestic_dns">DNS nội địa (Không bắt buộc)</string>
     <string name="summary_pref_domestic_dns">DNS</string>
@@ -323,5 +327,11 @@
     <string name="title_pref_fragment_length">Fragment Length (min-max)</string>
     <string name="title_pref_fragment_interval">Fragment Interval (min-max)</string>
     <string name="title_pref_fragment_enabled">Enable Fragment</string>
+
+    <string-array name="vpn_bypass_lan">
+        <item>Follow config</item>
+        <item>Bypass</item>
+        <item>Not Bypass</item>
+    </string-array>
 
 </resources>

@@ -7,6 +7,7 @@
     <string name="navigation_drawer_close">關閉導覽匣</string>
     <string name="migration_success">資料遷移成功！</string>
     <string name="migration_fail">資料遷移失敗！</string>
+    <string name="pull_down_to_refresh">請下拉刷新!</string>
 
     <!-- Notifications -->
     <string name="notification_action_stop_v2ray">停止</string>
@@ -113,6 +114,8 @@
     <string name="server_lab_port_hop">跳躍連接埠(會覆蓋伺服器連接埠)</string>
     <string name="server_lab_port_hop_interval">連接埠跳躍間隔(秒)</string>
     <string name="server_lab_stream_pinsha256">SHA256憑證指紋</string>
+    <string name="server_lab_bandwidth_down">頻寬下行 (單位)</string>
+    <string name="server_lab_bandwidth_up">頻寬上行 (單位)</string>
     <string name="server_lab_xhttp_mode">XHTTP 模式</string>
     <string name="server_lab_xhttp_extra">XHTTP Extra 原始 JSON，格式： { XHTTPObject }</string>
 
@@ -174,6 +177,7 @@
     <string name="summary_pref_remote_dns">DNS</string>
 
     <string name="title_pref_vpn_dns">VPN DNS (僅支援 IPv4/v6)</string>
+    <string name="title_pref_vpn_bypass_lan">VPN是否繞過區域網</string>
 
     <string name="title_pref_dns_hosts">DNS hosts (格式: 網域:位址,…)</string>
     <string name="summary_pref_dns_hosts">domain:address,…</string>
@@ -325,6 +329,12 @@
         <item>黑名單(Blacklist)</item>
         <item>全域(Global)</item>
         <item>伊朗(Iran)</item>
+    </string-array>
+
+    <string-array name="vpn_bypass_lan">
+        <item>跟隨設定檔</item>
+        <item>繞過</item>
+        <item>不繞過</item>
     </string-array>
 
 </resources>

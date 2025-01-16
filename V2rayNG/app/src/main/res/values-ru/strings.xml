@@ -7,6 +7,7 @@
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
     <string name="migration_success">Успешный перенос данных!</string>
     <string name="migration_fail">Перенос данных не выполнен!</string>
+    <string name="pull_down_to_refresh">Please pull down to refresh!</string>
 
     <!-- Notifications -->
     <string name="notification_action_stop_v2ray">Остановить</string>
@@ -118,6 +119,8 @@
     <string name="server_lab_port_hop">Смена портов (переопределяет порт)</string>
     <string name="server_lab_port_hop_interval">Интервал смены портов</string>
     <string name="server_lab_stream_pinsha256">pinSHA256</string>
+    <string name="server_lab_bandwidth_down">Bandwidth down (units)</string>
+    <string name="server_lab_bandwidth_up">Bandwidth up (units)</string>
     <string name="server_lab_xhttp_mode">Режим XHTTP</string>
     <string name="server_lab_xhttp_extra">Необработанный JSON XHTTP Extra, формат: { XHTTPObject }</string>
 
@@ -175,6 +178,7 @@
     <string name="summary_pref_remote_dns">DNS</string>
 
     <string name="title_pref_vpn_dns">VPN DNS (только IPv4/v6)</string>
+    <string name="title_pref_vpn_bypass_lan">VPN пропускает LAN</string>
 
     <string name="title_pref_domestic_dns">Внутренняя DNS (необязательно)</string>
     <string name="summary_pref_domestic_dns">DNS</string>
@@ -335,6 +339,12 @@
         <item>Чёрный список Китая</item>
         <item>Общие</item>
         <item>Белый список Ирана</item>
+    </string-array>
+
+    <string-array name="vpn_bypass_lan">
+        <item>Как в профиле</item>
+        <item>Пропускает</item>
+        <item>Не пропускает</item>
     </string-array>
 
 </resources>

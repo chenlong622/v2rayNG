@@ -8,6 +8,7 @@
     <string name="navigation_drawer_close">إغلاق درج التنقل</string>
     <string name="migration_success">نجحت عملية ترحيل البيانات!</string>
     <string name="migration_fail">فشلت عملية ترحيل البيانات!</string>
+    <string name="pull_down_to_refresh">Please pull down to refresh!</string>
 
     <!-- Notifications -->
     <string name="notification_action_stop_v2ray">إيقاف</string>
@@ -120,6 +121,8 @@
     <string name="server_lab_port_hop">Port Hopping</string>
     <string name="server_lab_port_hop_interval">Port Hopping Interval</string>
     <string name="server_lab_stream_pinsha256">pinSHA256</string>
+    <string name="server_lab_bandwidth_down">Bandwidth down (units)</string>
+    <string name="server_lab_bandwidth_up">Bandwidth up (units)</string>
     <string name="server_lab_xhttp_mode">XHTTP Mode</string>
     <string name="server_lab_xhttp_extra">XHTTP Extra raw JSON, format: { XHTTPObject }</string>
 
@@ -176,6 +179,7 @@
     <string name="summary_pref_remote_dns">DNS</string>
 
     <string name="title_pref_vpn_dns">VPN DNS (IPv4/v6 فقط)</string>
+    <string name="title_pref_vpn_bypass_lan">Does VPN bypass LAN</string>
 
     <string name="title_pref_domestic_dns">DNS المحلي (اختياري)</string>
     <string name="summary_pref_domestic_dns">DNS</string>
@@ -321,6 +325,12 @@
         <item>اتبع النظام</item>
         <item>فاتح</item>
         <item>داكن</item>
+    </string-array>
+
+    <string-array name="vpn_bypass_lan">
+        <item>Follow config</item>
+        <item>Bypass</item>
+        <item>Not Bypass</item>
     </string-array>
 
 </resources>
